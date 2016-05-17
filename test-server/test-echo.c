@@ -248,10 +248,9 @@ int main(int argc, char **argv)
 	char ssl_key[256] = LOCAL_RESOURCE_PATH"/libwebsockets-test-server.key.pem";
 #ifndef _WIN32
 	int syslog_options = LOG_PID;
-
-#  ifdef LOG_PERROR
-  syslog_options |= LOG_PERROR;
-#  endif
+#ifdef LOG_PERROR
+	syslog_options |= LOG_PERROR;
+#endif
 #endif
   
 	int client = 0;

@@ -202,9 +202,9 @@ int main(int argc, char **argv)
 	int n = 0;
 #ifndef _WIN32
 	int syslog_options = LOG_PID;
-#  ifdef LOG_PERROR
-  syslog_options |= LOG_PERROR;
-#  endif
+#ifdef LOG_PERROR
+	syslog_options |= LOG_PERROR;
+#endif
 #endif
 #ifndef LWS_NO_DAEMONIZE
  	int daemonize = 0;
