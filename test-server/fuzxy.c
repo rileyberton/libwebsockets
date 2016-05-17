@@ -66,6 +66,10 @@
 #include <netinet/in.h>
 #endif
 
+#if (defined(sun) || defined(__sun)) && (defined(__SVR4) || defined(__svr4__))
+#include <strings.h>
+#endif
+
 #define MAX_FUZZ_BUF (1024 * 1024)
 
 enum types {
@@ -756,7 +760,10 @@ main(int argc, char **argv)
 	int n = 0, m;
 
 #ifndef _WIN32
-	int syslog_options = LOG_PID | LOG_PERROR;
+	int syslog_options = LOG_PID;
+# ifdef LOG_PERROR
+  syslog_options |= LOG_PERROR;
+#  endif
 #endif
 #ifndef LWS_NO_DAEMONIZE
  	int daemonize = 0;

@@ -42,6 +42,10 @@
 #include <termiosh>
 #endif
 
+#if (defined(sun) || defined(__sun)) && (defined(__SVR4) || defined(__svr4__))
+#include <sys/termios.h>
+#endif
+
 /*
  * this is specified in the 04 standard, control frames can only have small
  * payload length styles

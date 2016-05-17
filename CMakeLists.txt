@@ -417,6 +417,9 @@ CHECK_FUNCTION_EXISTS(_snprintf LWS_HAVE__SNPRINTF)
 CHECK_FUNCTION_EXISTS(_vsnprintf LWS_HAVE__VSNPRINTF)
 CHECK_FUNCTION_EXISTS(getloadavg LWS_HAVE_GETLOADAVG)
 
+CHECK_LIBRARY_EXISTS(socket getifaddrs /usr/lib LWS_HAVE_SOCKET_LIB)
+CHECK_LIBRARY_EXISTS(nsl inet_addr /usr/lib LWS_HAVE_NSL_LIB)
+
 if (NOT LWS_HAVE_GETIFADDRS)
 	if (LWS_WITHOUT_BUILTIN_GETIFADDRS)
 		message(FATAL_ERROR "No getifaddrs was found on the system. Turn off the LWS_WITHOUT_BUILTIN_GETIFADDRS compile option to use the supplied BSD version.")
@@ -864,6 +867,12 @@ endif()
 
 if (UNIX)
 	list(APPEND LIB_LIST m)
+  if (LWS_HAVE_SOCKET_LIB)
+	  list(APPEND LIB_LIST socket)
+  endif()
+  if (LWS_HAVE_NSL_LIB)
+	  list(APPEND LIB_LIST nsl)
+  endif()
 endif()
 
 # Setup the linking for all libs.

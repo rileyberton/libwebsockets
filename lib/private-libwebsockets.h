@@ -317,6 +317,13 @@ extern "C" {
 #define MSG_NOSIGNAL SO_NOSIGPIPE
 #endif
 
+/*
+ * Solarish systems do not define the MSG_NOSIGNAL flag
+ */
+#if (defined(sun) || defined(__sun)) && (defined(__SVR4) || defined(__svr4__)) 
+#define MSG_NOSIGNAL 0
+#endif
+
 #ifdef _WIN32
 #ifndef FD_HASHTABLE_MODULUS
 #define FD_HASHTABLE_MODULUS 32

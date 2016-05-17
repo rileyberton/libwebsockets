@@ -6,6 +6,10 @@
 #include <dlfcn.h>
 #include <dirent.h>
 
+#include <netdb.h>
+
+#include <syslog.h>
+
 
 /*
  * included from libwebsockets.c for unix builds
@@ -253,7 +257,7 @@ lws_plat_set_socket_options(struct lws_vhost *vhost, int fd)
     !defined(__FreeBSD__) && !defined(__FreeBSD_kernel__) && \
     !defined(__NetBSD__) && \
     !defined(__OpenBSD__)
-	if (setsockopt(fd, SOL_TCP, TCP_NODELAY, (const void *)&optval, optlen) < 0)
+	if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (const void *)&optval, optlen) < 0)
 		return 1;
 #else
 	tcp_proto = getprotobyname("TCP");
